@@ -9,7 +9,7 @@ var popup = L.popup();
 
 function constructMap(position) {
     latlong = L.latLng(position.coords.latitude,position.coords.longitude);
-    mymap = L.map('testMap').setView(latlong, 13);
+    mymap = L.map('testMap').setView(latlong, 16);
     var marker = L.marker(latlong).addTo(mymap);
     marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
     L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidHJpY2hhcmQiLCJhIjoiY2p0ZDNnMjFuMGdkejN6cGJwcndsOXI5MyJ9.hSogqqC1DJ9KRsFTCvYfTA', {
