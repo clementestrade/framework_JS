@@ -1,51 +1,40 @@
 const dbName = "apiculteurDatabase";
 
 
-var request = indexedDB.open(dbName, 5);
-
-request.onsuccess = function (event) {
-    var db = event.target.result;
-    var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
-
-    db.transaction(["ruchers"]).objectStore("ruchers").getAll().onsuccess = function (event) {
-        console.log(event.target.result[1].dateCreation)
-    }
-
-};
-
-const app = new Vue({
-    el: '#app-2',
+const app2 = new Vue({
+    el: '#app2',
     data: {
-        names: [],
-        nbRuches: [],
-        typeEvts: [],
-        longitudes: [],
-        latitudes: [],
-        frequencies: []
+        ruchers: this.readData,
     },
 
-    methods: {
-        readData: function (e) {
+    computed:{
+        readData: function () {
+            console.log("hey");
             var request = indexedDB.open(dbName, 5);
-
+            var res=[];
             request.onsuccess = function (event) {
                 var db = event.target.result;
                 var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
 
                 db.transaction(["ruchers"]).objectStore("ruchers").getAll().onsuccess = function (event) {
                     event.target.result.forEach(function (res) {
-                        this.names.push(res.nom);
-                        this.nbRuches.push(res.nbRuche);
-                        this.typeEvts.push(res.descriptif);
-                        this.longitudes.push(res.longitude);
-                        this.latitudes.push(res.latitude);
-                        this.frequencies.push(res.frequenceVisite);
+                        console.log(res)
+                        res.push({
+                            "identifiant": res.identifiant,
+                            "nom": res.nom,
+                            "nbRuches": res.nbRuche,
+                            "descriptif": res.descriptif,
+                            "longitude": res.longitude,
+                            "latitude": res.latitude,
+                            "dateCreation": res.dateCreation,
+                            "frequenceVisite": res.frequenceVisite,
+                        })
                     })
 
                 }
-
-            };
-        },
+            }
+            return res;
+        }
 
     }
 })
