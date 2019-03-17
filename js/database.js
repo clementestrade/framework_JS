@@ -72,11 +72,13 @@ const app = new Vue({
                 "frequenceVisite": this.frequency,
             }
 
+            console.log(dataSend);
+            debugger;
+
             request.onsuccess = function (event) {
                 var db = event.target.result;
                 var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
                 customerObjectStore.add(dataSend);
-
             };
 
         }

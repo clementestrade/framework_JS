@@ -5,7 +5,7 @@
     <title>App'iculture</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
@@ -24,7 +24,7 @@
         <label for="name">Nom : </label>
         <input
                 id="name"
-                v-model="name"
+                v-model="names"
                 type="text"
                 name="name"
         >
@@ -34,7 +34,7 @@
         <label for="nbRuche">Nombre de ruche : </label>
         <input
                 id="nbRuche"
-                v-model="nbRuche"
+                v-model="nbRuches"
                 type="number"
                 name="nbRuche"
                 min="0">
@@ -92,6 +92,6 @@
 </form>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="js/script.js"></script>
-<script src="js/database.js"></script>
+<script src="../js/script.js"></script>
+<script src="../js/database.js"></script>
 </html>
