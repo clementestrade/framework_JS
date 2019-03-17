@@ -8,87 +8,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<form
-        id="app"
-        @submit="checkForm"
->
-    <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-    <ul>
-        <li v-for="error in errors">{{ error }}</li>
-    </ul>
-    </p>
-
-    <p>
-        <label for="name">Nom : </label>
-        <input
-                id="name"
-                v-model="name"
-                type="text"
-                name="name"
-        >
-    </p>
-
-    <p>
-        <label for="nbRuche">Nombre de ruche : </label>
-        <input
-                id="nbRuche"
-                v-model="nbRuche"
-                type="number"
-                name="nbRuche"
-                min="0">
-    </p>
-
-    <p>
-        <label for="typeEvt">Type d'environnement</label>
-        <select
-                id="typeEvt"
-                v-model="typeEvt"
-                name="typeEvt"
-        >
-            <option>Arbre</option>
-            <option>Plaine</option>
-        </select>
-    </p>
-
-    <p>
-        <label for="longitude">Longitude : </label>
-        <input
-                id="longitude"
-                v-model="longitude"
-                type="number"
-                name="longitude"
-        >
-    </p>
-
-    <p>
-        <label for="latitude">Latitude : </label>
-        <input
-                id="latitude"
-                v-model="latitude"
-                type="number"
-                name="latitude"
-        >
-    </p>
-
-    <p>
-        <label for="frequency">Frequence : </label>
-        <input
-                id="frequency"
-                v-model="frequency"
-                type="number"
-                name="frequency"
-        >
-    </p>
-
-    <p>
-        <input
-                type="submit"
-                value="Submit"
-        >
-    </p>
-
-</form>
     <div id="mapErrors"></div>
     <div id="testMap"></div>
 </body>
@@ -98,4 +17,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="js/script.js"></script>
+    <script src="js/database.js"></script>
 </html>

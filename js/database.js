@@ -1,17 +1,5 @@
 const dbName = "apiculteurDatabase";
 
-const rucherData = [
-    {
-        "identifiant": "fezfiuezhfio",
-        "nom": "rucher n1",
-        "nbRuche": 5,
-        "descriptif": "fleurs",
-        "longitude": 1.00,
-        "latitude": 45.0,
-        "dateCreation": "02/03/2019",
-        "frequenceVisite": 10,
-    }
-];
 
 var request = indexedDB.open(dbName, 5);
 
@@ -50,10 +38,7 @@ const app = new Vue({
     },
 
     methods: {
-        checkForm: function (e) {
-            if (this.name && this.nbRuche) {
-                return true;
-            }
+        checkForm: function (e) {;
 
             this.errors = [];
 
@@ -69,7 +54,7 @@ const app = new Vue({
             console.log(this.name);
 
             var dataSend = {
-                "identifiant": "fe",
+                "identifiant": ChaineAleatoire(50),
                 "nom": this.name,
                 "nbRuche": this.nbRuche,
                 "descriptif": this.descriptif,
@@ -90,8 +75,6 @@ const app = new Vue({
 
             };
 
-
-            e.preventDefault();
         }
     }
 })
