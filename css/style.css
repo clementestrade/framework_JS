@@ -1,4 +1,16 @@
+html, body {
+    width: 100vw;
+    height: 100vh;
+    overflow-y: hidden;
+    font-family: 'Raleway', sans-serif;
+}
+
 #testMap {
     height: 700px;
-    width: 100%
+}
+
+main {
+    height: calc(100% - 56px);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
