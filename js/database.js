@@ -23,14 +23,22 @@ request.onupgradeneeded = function (event) {
         }
     }
 };
+request.onsuccess = function (event) {
+    var db = event.target.result;
+    var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
 
+    db.transaction(["ruchers"]).objectStore("ruchers").getAll().onsuccess = function (event) {
+        console.log(event.target.result[1].dateCreation)
+    }
+
+};
 
 const app = new Vue({
     el: '#app',
     data: {
         errors: [],
-        name: "default",
-        nbRuche: 1,
+        names: "default",
+        nbRuches: 1,
         typeEvt: "default",
         longitude: 1,
         latitude: 1,
@@ -42,21 +50,21 @@ const app = new Vue({
 
             this.errors = [];
 
-            if (!this.name) {
+            if (!this.names) {
                 this.errors.push('Nom necessaire.');
             }
-            if (!this.nbRuche) {
+            if (!this.nbRuches) {
                 this.errors.push('Nombre de ruche necessaire');
             }
 
             var request = indexedDB.open(dbName, 5);
 
-            console.log(this.name);
+            console.log(this.names);
 
             var dataSend = {
                 "identifiant": ChaineAleatoire(50),
-                "nom": this.name,
-                "nbRuche": this.nbRuche,
+                "nom": this.names,
+                "nbRuches": this.nbRuches,
                 "descriptif": this.descriptif,
                 "longitude": this.longitude,
                 "latitude": this.latitude,
@@ -68,10 +76,6 @@ const app = new Vue({
                 var db = event.target.result;
                 var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
                 customerObjectStore.add(dataSend);
-
-                db.transaction(["ruchers"]).objectStore("ruchers").getAll().onsuccess = function (event) {
-                    console.log(event.target.result[1].nom)
-                }
 
             };
 
