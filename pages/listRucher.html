@@ -3,16 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>App'iculture</title>
+    <link rel="icon" href="../logo.png" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<div id="app2">
-    <ul>
-        <li v-for="rucher in ruchers">{{ rucher.nom }}</li>
-    </ul>
-</div>
+    <nav class="bg-warning navbar navbar-dark navbar-expand-lg">
+        <a class="navbar-brand" href="../index.html">
+            <img src="../logo.png" width="35" height="26" alt="">
+        </a>
+        <a class="navbar-brand" href="../index.html">Web App'iculture</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-warning" href="listRucher.html">Liste des ruchers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-warning" href="map.html">Carte des ruchers<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-warning" href="#">Paramètre de l'application</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main class="bg-dark">
+        <div class="row justify-content-center text-light">
+            <h1 class="col-12 mt-4 mb-4 text-warning text-center">Liste des ruchers <a href="addRuche.html" class="btn btn-success ml-4"> + Ajouter une ruche</a></h1>
+            <div id="app2" class="col-12">
+                <div class="row px-5">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3" v-for="rucher in ruchers">
+                        <div class="card text-white bg-secondary mb-3">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0" style="text-transform: capitalize;">{{ rucher.nom }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="card-text">Nombre de ruche(s) : {{ rucher.nbRuches }}</p>
+                                <p v-if="rucher.descriptif" class="card-text">Description : <br> {{ rucher.descriptif }}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-warning text-light">Visitez le rucher</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <script src="../js/script.js"></script>

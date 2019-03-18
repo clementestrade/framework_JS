@@ -1,7 +1,6 @@
 const dbName = "apiculteurDatabase";
 
 function getData() {
-    console.log("hey");
     var request = indexedDB.open(dbName, 5);
     var res = this.ruchers;
     request.onsuccess = function (event) {
@@ -10,11 +9,10 @@ function getData() {
 
         db.transaction(["ruchers"]).objectStore("ruchers").getAll().onsuccess = function (event) {
             event.target.result.forEach(function (resultat) {
-                console.log(resultat)
                 res.push({
                     "identifiant": resultat.identifiant,
                     "nom": resultat.nom,
-                    "nbRuches": resultat.nbRuche,
+                    "nbRuches": resultat.nbRuches,
                     "descriptif": resultat.descriptif,
                     "longitude": resultat.longitude,
                     "latitude": resultat.latitude,
@@ -33,6 +31,7 @@ var ruchers = [];
 (function() {
 
     ruchers = getData();
+    console.log(ruchers)
 
     const app2 = new Vue({
         el: '#app2',

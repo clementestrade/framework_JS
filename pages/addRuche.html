@@ -3,95 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <title>App'iculture</title>
+    <link rel="icon" href="../logo.png" type="image/gif" sizes="16x16">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <nav class="bg-warning navbar navbar-dark navbar-expand-lg">
+        <a class="navbar-brand" href="../index.html">
+            <img src="../logo.png" width="35" height="26" alt="">
+        </a>
+        <a class="navbar-brand" href="../index.html">Web App'iculture</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<form
-        id="app"
-        @submit="checkForm"
->
-    <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-    <ul>
-        <li v-for="error in errors">{{ error }}</li>
-    </ul>
-    </p>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link btn btn-warning" href="listRucher.html">Liste des ruchers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-warning" href="map.html">Carte des ruchers<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn btn-warning" href="#">Paramètre de l'application</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <main class="bg-dark">
+        <div class="row justify-content-center text-light">
+            <h1 class="col-12 mt-4 mb-4 text-warning text-center">Ajout d'un rucher</h1>
+            <form
+                    id="app"
+                    @submit="checkForm"
+                    class="col-12 px-5"
+            >
+                <p v-if="errors.length">
+                    <b>Please correct the following error(s):</b>
+                    <ul>
+                        <li v-for="error in errors">{{ error }}</li>
+                    </ul>
+                </p>
 
-    <p>
-        <label for="name">Nom : </label>
-        <input
-                id="name"
-                v-model="names"
-                type="text"
-                name="name"
-        >
-    </p>
+                <div class="form-group">
+                    <label for="name">Nom : </label>
+                    <input  id="name"
+                            v-model="names"
+                            type="text"
+                            name="name"
+                            class="form-control"
+                    >
+                </div>
 
-    <p>
-        <label for="nbRuche">Nombre de ruche : </label>
-        <input
-                id="nbRuche"
-                v-model="nbRuches"
-                type="number"
-                name="nbRuche"
-                min="0">
-    </p>
+                <div class="form-group">
+                    <label for="nbRuche">Nombre de ruche : </label>
+                    <input  id="nbRuche"
+                            v-model="nbRuches"
+                            type="number"
+                            name="nbRuche"
+                            class="form-control"
+                            min="0">
+                </div>
 
-    <p>
-        <label for="typeEvt">Type d'environnement</label>
-        <select
-                id="typeEvt"
-                v-model="typeEvt"
-                name="typeEvt"
-        >
-            <option>Arbre</option>
-            <option>Plaine</option>
-        </select>
-    </p>
+                <div class="form-group">
+                    <label for="typeEvt">Type d'environnement : </label>
+                    <select id="typeEvt"
+                            v-model="typeEvt"
+                            name="typeEvt"
+                            class="custom-select"
+                    >
+                        <option value="arbre">Arbre</option>
+                        <option value="plaine">Plaine</option>
+                    </select>
+                </div>
 
-    <p>
-        <label for="longitude">Longitude : </label>
-        <input
-                id="longitude"
-                v-model="longitude"
-                type="number"
-                name="longitude"
-        >
-    </p>
+                <div v-if="longitude && latitude" class="form-group row">
+                    <label for="longitude" class="col-sm-2 col-form-label">Longitude : </label>
+                    <div class="col-sm-10 col-md-4">
+                        <input  id="longitude"
+                                v-model="longitude"
+                                type="number"
+                                name="longitude"
+                                class="form-control-plaintext text-light"
+                                readonly
+                        >
+                    </div>
+                    <label for="latitude" class="col-sm-2 col-form-label">Latitude : </label>
+                    <div class="col-sm-10 col-md-4">
+                        <input  id="latitude"
+                                v-model="latitude"
+                                type="number"
+                                name="latitude"
+                                class="form-control-plaintext text-light"
+                                readonly
+                        >
+                    </div>
+                </div>
 
-    <p>
-        <label for="latitude">Latitude : </label>
-        <input
-                id="latitude"
-                v-model="latitude"
-                type="number"
-                name="latitude"
-        >
-    </p>
+                <div class="form-group">
+                    <label for="frequency">Fréquence : </label>
+                    <input  id="frequency"
+                            v-model="frequency"
+                            type="number"
+                            name="frequency"
+                            class="form-control"
+                    >
+                </div>
 
-    <p>
-        <label for="frequency">Frequence : </label>
-        <input
-                id="frequency"
-                v-model="frequency"
-                type="number"
-                name="frequency"
-        >
-    </p>
+                <div class="form-group">
+                    <label for="descriptif">Description : </label>
+                    <textarea id="descriptif"
+                              v-model="descriptif"
+                              name="descriptif"
+                              class="form-control"
+                              rows="5"></textarea>
+                </div>
 
-    <p>
-        <input
-                type="submit"
-                value="Submit"
-        >
-    </p>
+                <input class="btn btn-success"
+                       type="submit"
+                       value="Ajouter"
+                >
 
-</form>
+            </form>
+        </div>
+    </main>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="../js/script.js"></script>
-<script src="../js/database.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/database.js"></script>
 </html>
