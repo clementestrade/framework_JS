@@ -31,7 +31,6 @@ var ruchers = [];
 (function() {
 
     ruchers = getData();
-    console.log(ruchers)
 
     const app2 = new Vue({
         el: '#app2',

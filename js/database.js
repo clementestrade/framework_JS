@@ -91,8 +91,6 @@ const app = new Vue({
 
             var request = indexedDB.open(dbName, 5);
 
-            console.log(this.names);
-
             var dataSend = {
                 "identifiant": ChaineAleatoire(50),
                 "nom": this.names,

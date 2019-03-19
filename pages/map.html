@@ -33,11 +33,25 @@
             </ul>
         </div>
     </nav>
-    <main class="bg-dark">
-        <div class="row justify-content-center">
+    <main id="app" class="bg-dark">
+        <div class="row justify-content-center px-5">
             <h1 class="mt-4 mb-4 text-warning">Carte des ruchers</h1>
-            <div id="mapErrors"></div>
-            <div id="testMap" class="col-12 col-md-11"></div>
+            <div id="mapErrors" class="col-12"></div>
+            <div id="testMap" class="col-12 col-xs-11 col-md-8"></div>
+            <div id="listPoi" class="col-12 col-xs-11 col-md-4 bg-secondary px-1" style="max-height:700px; overflow-y: auto">
+                <div class="card my-1" v-for="rucher in ruchers">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0" style="text-transform: capitalize;">{{ rucher.nom }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Nombre de ruche(s) : {{ rucher.nbRuches }}</p>
+                        <p v-if="rucher.descriptif" class="card-text">Description : <br> {{ rucher.descriptif }}</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="#" class="btn btn-warning text-light">Visitez le rucher</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </body>
@@ -47,5 +61,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="../js/map.js"></script>
-    <script src="../js/database.js"></script>
 </html>
