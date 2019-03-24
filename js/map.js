@@ -39,11 +39,9 @@ request.onsuccess = function (event) {
     }
 
 };
-
 function getData() {
     return new Promise(function(resolve){
         var request = indexedDB.open(dbName, 5);
-        console.log(this.ruchers)
         var res = this.ruchers;
         request.onsuccess = function (event) {
             var db = event.target.result;
@@ -72,27 +70,13 @@ function getData() {
 var ruchers = [];
 
 (function() {
+
+    getData();
+    console.log(ruchers);
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(constructMap, showError);
     }
-    getData();
-    getData().then(function(result){
-        //ruchers = result;
-        console.log(result.length);
-        ruchers.forEach(function(rucher, index){
-            console.log('mange mes couilles')
-            console.log(rucher);
-            if( rucher.latitude !== undefined && rucher.longitude !== undefined ){
-                var templatlong = L.latLng(rucher.latitude, rucher.longitude);
-                console.log(templatlong);
-                var marker = L.marker(templatlong).addTo(mymap);
-                marker.bindPopup("<b>Hello world!</b><br>I am a popup.");
-                if(index === 0){
-                    marker.openPopup();
-                };
-            }
-        });
-    });
+
     const app = new Vue({
         el: '#app',
         data: {
@@ -110,6 +94,19 @@ function constructMap(position) {
         id: 'mapbox.streets',
         accessToken: 'your.mapbox.access.token'
     }).addTo(mymap);
+
+    var tmp = ruchers;
+    tmp.forEach(function(rucher, index){
+        console.log(ruchers);
+        if( rucher.latitude !== undefined && rucher.longitude !== undefined ){
+            var templatlong = L.latLng(rucher.latitude, rucher.longitude);
+            var marker = L.marker(templatlong).addTo(mymap);
+            marker.bindPopup('<h5><b>' + rucher.nom + '</b></h5><p>Nombre de ruches : ' + rucher.nbRuches + '</p><a href="#" class="btn btn-sm btn-warning text-light">Visitez le rucher</a>');
+            if(index === 0){
+                marker.openPopup();
+            };
+        }
+    });
 }
 
 function showError(error) {
