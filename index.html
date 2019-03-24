@@ -36,209 +36,91 @@
     <main class="bg-dark">
         <div class="row justify-content-center">
             <div class="col-12 p-5 text-light">
-                <header>
-                    <h4>Licence professionnelle Développeur d'Application Web et Big Data</h4>
-                    <h4>Module Javascript Frameworks</h4>
-
-                    <h2>Projet final (évaluation)</h2>
-                    <h2>Web App'iculture</h2>
-
-
-
-                </header>
                 <section>
-
+                    <h1 align="center">
+                        Rapport projet Framework JS
+                    </h1>
+                    <h2>
+                        Introduction :
+                    </h2>
                     <p>
-                        L'objectif de ce projet est la conception et la réalisation d'une application web destinée à des apiculteurs pour le suivi et la gestion de leurs ruches.
-                        Un apiculteur gère des ruchers disposés en différents lieux, présentant un environnement et une flore spécifique. Chaque rucher est composé de ruches en nombre variable. Le suivi mené par l'apiculteur se fait à l'échelle d'un rucher. Le suivi d'un rucher se traduit par des visites sur site qui doivent être réalisées à des fréquences variables selon les saisons. Lors d'une visite, l'apiculteur peut réaliser différentes interventions :
-                    </p><ul>
-                    <li>il évalue la dynamique de développement des abeilles</li>
-                    <li>il nourrit les abeilles avec du sirop ou du sucre</li>
-                    <li>il récolte le miel, récolte quantifiée en nombre de <a href="https://fr.wikipedia.org/wiki/Hausse_(apiculture)">"hausse"</a></li>
-                    <li>il note des obversations sur l'état général et les opérations à prévoir lors de la prochaine visite</li>
-                </ul>
-                    L'application est destinée à être utilisée sur le terrain. Donc il faudra penser "mobile first" sans négliger un fonctionnement desktop correct.
-                    Idéalement l'application permet à tout apiculteur de se créer un compte et de gérer ses ruches à travers ce compte.
-                    Cependant pour simplifier un peu votre tâche, cet aspect multi-utilisateur vous sera compté en bonus.
-                    Seule une version mono-utilisateur est exigée.
-                    Notez cependant que ce "bonus" ne représente pas nécessairement un fort investissement, surtout si vous l'intégrez dès le début à votre réflexion.
-                    Le sujet ci-dessous détaille les fonctionnalités exigées pour cette application.
-
-                    <p></p>
-
-
-                    <div><br><br>
-
-                        <h3>Back office : </h3>
-                        <p>
-                            L'application permet d'accéder à un back office pour gérer les principaux paramètres de l'application
-                        </p>
-
-
-                        <h4>Fonctionnalités</h4>
-                        <p><span style="color:darkblue">Le back office comporte une vue/onglet "Configuration" qui permet de :</span>
-                        </p><ul style="list-style-type:disc">
-                            <li>Renseigner la fréquence globale de visites des ruchers (en nombre de jours, par exemple 10 pour "tous les 10 jours")</li>
-                            <li>Définir une liste d'environnements types (par exemple, "toutes fleurs", "forêt", "chataîgnier"... les labels étant saisis par l'apiculteur)</li>
-                            <li>Sauvegarder toutes les données de l'application au format json</li>
-                            <li>Importer des données préalablement sauvegardées au format json (écrasant l'existant le cas échéant)</li>
-                        </ul>
-                        <p></p><br>
-
-
-                        <p><span style="color:darkblue">Le back office comporte une vue/onglet "Ruches et ruchers" qui permet de :</span>
-                        </p><ul style="list-style-type:disc">
-                            <li>Créer un rucher, en renseignant :
-                                <ul>
-                                    <li>un identifiant (i.e. une chaîne de caractères (256 max) à la discrétion de l'apiculteur</li>
-                                    <li>le nombre de ruches formant le rucher</li>
-                                    <li>un descriptif sur le lieu d'implantation du rucher en se basant par défaut sur la liste des environnements types</li>
-                                </ul>
-                                En plus de ces informations à saisir manuellement, l'application associe automatiquement au rucher :
-                                <ul>
-                                    <li>les coordonnées géographiques du terminal utilisé si celles-ci sont disponibles (sinon on les laissera vides)</li>
-                                    <li>la date de création du rucher</li>
-                                    <li>un historique des visites, initialement vide</li>
-                                    <li>une fréquence de visite personnalisée et prioritaire sur celle définie globalement dans l'onglet paramètre. Initialement la fréquence personnalisée sera vide, auquel cas la fréquence globale s'applique</li>
-                                </ul>
-                            </li>
-                            <li>Editer les informations d'un rucher existant :
-                                <ul>
-                                    <li>Modifier l'identifiant, le nombre de ruches, le descriptif d'implantation ou la fréquence personnalisée des visites</li>
-                                    <li>Mettre à jour les coordonnées géographique si disponibles</li>
-                                </ul>
-                            </li>
-                            <li>Supprimer un rucher (et tout l'historique qui en dépendait)</li>
-                        </ul>
-                        <p></p><br>
-
-
-
-
-                        <h4>Indications techniques</h4>
-                        <p>
-                            Normalement, les données de l'application devraient être sauvegardées quelque part sur un serveur sur lequel vous avez et gardez la main. Ici on acceptera que vous vous contentiez de sauvegarder les données en locale, soit en <a href="https://developer.mozilla.org/fr/docs/Web/API/Web_Storage_API">localStorage</a> ou de manière plus élaborée en utilisant <a href="https://developer.mozilla.org/fr/docs/Web/API/API_IndexedDB/Using_IndexedDB">une base indexée</a>. Bien que limitée en volume de données (la première option plus que la seconde), ça ne doit pas poser problème dans le contexte de ce projet. A noter que la synchronisation des données sauvegardées en locale avec une bdd sur un serveur distance resterait tout à fait possible, mais on ne vous le demande pas.
-
-                        </p><br><br>
-
-                        <h3>Front office :</h3>
-                        <p>
-                            Le front office se décompose en 3 vues/onglets. Le premier liste les ruchers à visiter du plus urgent au moins urgent. Le second permet de visualiser sur une carte l'emplacement des ruchers. Le troisième permet de saisir une visite pour un rucher préalablement sélectionné.
-                        </p><br>
-
-                        <h4>Fonctionnalités</h4>
-                        <p><span style="color:darkblue">Onglet "Liste des ruchers à visiter"</span>
-                        </p><p>Les ruchers sont listés en fonction du nombre de jours écoulés depuis la dernière visite (s'il n'y a pas encore eu de visite, on se réfèrera à la date de création du rucher). Pour bien visualiser l'urgence à visiter les ruchers, on utilisera un code couleur (par exemple) :
-                        </p><ul style="list-style-type:disc">
-                            <li>Rouge si le nombre de jours écoulés depuis la dernière visite est supérieur à la fréquence prédéfinie des visites (fréquence spécifique au rucher ou à défaut définie globalement)</li>
-                            <li>Orange si le nombre de jours écoulés depuis la dernière visite est supérieur ou égal à la moitié de la fréquence des visites</li>
-                            <li>Vert sinon</li>
-                        </ul>
-                        Par exemple si la dernière visite remonte à 13 jours pour un rucher, que la fréquence globale est de 10 jours et que le rucher ne possède pas de fréquence spécifique, alors le rucher sera "marqué" en rouge car cela fait 3 jours que la visite aurait dû avoir lieu. Dans un cas analogue mais avec une fréquence spécifique de 18 jours, le rucher serait "marqué" orange car 13 est inférieur à 18 mais supérieur à 9.
-                        <p></p>
-                        <p>Un clic/touch sur un rucher de la liste ouvrira l'onglet "Visite d'un rucher" avec les données du rucher concerné.</p>
-                        <p></p><br>
-
-                        <p><span style="color:darkblue">Onglet "Carte des ruchers"</span>
-                        </p><p>Les ruchers sont matérialisés sur une carte à l'aide d'un marqueur positionné sur leurs coordonnées géographiques. Si des ruchers n'ont pas encore de coordonnées géographiques, on ne les affichera pas mais on se débrouillera pour afficher une alerte rappelant à l'apiculteur les ruchers pour lesquels cette information est manquante. En se basant sur le même "calcul" qu'indiqué précédemment, les marqueurs des ruchers seront de couleur rouge, orange ou vert selon l'urgence des visites à réaliser. Un "clic/touch" sur un marqueur ouvrira l'onglet "Visite d'un rucher" avec les données du rucher concerné. On pourra par défaut centrer la carte sur le rucher à visiter le plus rapidement.
-                        </p>
-                        <p></p><br>
-
-                        <p><span style="color:darkblue">Onglet "Visite d'un rucher"</span>
-                        </p><p> Cette onglet présente toutes les informations associées au rucher. On affichera de plus le nombre total de hausses récoltées depuis une date choisie par l'utilisateur (par défaut depuis la création du rucher dans l'application). La mise à jour des coordonnées géographiques est également possible depuis cet onglet, tout comme la modification de la fréquence des visites spécifique au rucher. Il est possible de visualiser l'historique des visites déjà effectuées et d'en afficher le détail si l'on en sélectionne une. Et bien sûr il est possible d'ajouter une nouvelle visite :
-                        </p><ul style="list-style-type:disc">
-                            <li>
-                                Une nouvelle visite prend par défaut la date du jour, mais elle peut aussi être saisie.
-                            </li>
-                            <li>
-                                Plusieurs autres informations peuvent être renseignées pour chaque visite :
-                                <ul>
-                                    <li>la dynamique de développement (un texte à saisir)</li>
-                                    <li>la nourriture éventuellement apportée (un texte à saisir)</li>
-                                    <li>le nombre de hausses récoltées</li>
-                                    <li>un champ permettant de saisir des observations générales ou de préciser les préparatifs utiles à la prochaine visite</li>
-                                </ul>
-
-                            </li>
-                        </ul>
-                        <p></p>
-                        <p></p>
-
-
-                        <h4>Indications techniques</h4>
-                        <p> Pour l'onglet "Carte des ruchers", je vous suggère de recourir à <a href="https://leafletjs.com/">LeafLet</a>. Les exemples de base vous suffiront amplement pour ce projet. Evitez Google Map dont l'usage est devenu bien plus restrictif depuis l'été dernier. Bien sûr si vous souhaitez utiliser d'autres librairies vous le pouvez. Selon le framework que vous utiliserez, certaines sont pré-intégrées sous la forme d'un module ou d'un composant à télécharger.
-
-                        </p><br><br><br>
-
-
-                        <h3>Critères d'évaluations</h3>
-
-                        <ul style="list-style-type:disc">
-
-                            <li>
-                                <h5>Maîtrise du framework</h5>
-                                <p>
-                                    Pour réaliser ce projet, vous devez utiliser l'un des frameworks vu en TP (Knockout, Vue ou Angular).
-                                    Quelque soit votre choix, la logique du framework doit être respecté et ses composants utilisés à bon escient.
-                                    La duplication des données comme du code est à proscrire.
-                                    Vous avez un projet avec pas mal de "liste de", c'est forcément exploitable.
-                                </p>
-                            </li>
-                            <li>
-                                <h5>Application 100% fonctionnelle</h5>
-                                <p>Votre application doit être totalement fonctionnelle. Elle sera testée en détail, console ouverte.</p>
-                            </li>
-
-                            <li>
-                                <h5>Organisation et clarté du code, facilité d'évolution</h5>
-                                <p>
-                                    Une attention toute particulière doit être portée à l'organisation de vos fichiers,
-                                    la clarté de votre code que l'on attend un minimum commenté, l'homogénéité des conventions de nommage...
-                                    Vous êtes des développeurs web. On ne peut pas se contenter	d'un code qui marche à l'instant t.
-                                    Il faut aussi et surtout que ce soit propre et bien pensé, de sorte
-                                    à ce que l'application puisse facilement évoluer sans restriction.
-                                </p>
-                            </li>
-
-                            <li>
-                                <h5>Ergonomie</h5>
-                                <p>
-                                    Même si ce n'est pas l'objectif principal de ce projet, on attend une interface claire et un minimum intuitive.
-                                    Dites vous que votre travail doit faire l'objet d'une présentation à un client et qu'il convient de ne pas le faire fuir au premier coup d'oeil.
-                                </p>
-                            </li>
-                        </ul><br>
-
-                        <h4>Modalité et livrable du projet</h4>
-                        <ul style="list-style-type:disc">
-                            <li>
-                                <h5>Binôme</h5>
-                                <p>
-                                    Ce projet est à réaliser par groupe de 2 étudiants. Ce n'est pas pour être sympa, c'est parce qu'il y a du travail pour 2, largement.
-                                </p>
-                            </li>
-                            <li>
-                                <h5>A qui </h5>
-                                <p>
-                                    Votre livrable sera à envoyer par mail à frederic.mora@unilim.fr, julien.dupuis.aff@unilim.fr, jean-daniel.berte@proximit.fr.
-                                    Préférez un Git ou un lien pour télécharger votre archive plutôt que de la joindre directement à votre message,
-                                    la passerelle de l'université filtre les archives contenant des scripts.
-                                </p>
-                            </li>
-
-                            <li>
-                                <h5 style="color:red">Quand : <b>le 24 mars 2019</b> </h5>
-                                <p>
-                                    Vous devrez fournir :
-                                </p><p>1. les sources (documentées!) de votre application</p>
-                                <p>2. une url où l'on peut tester en ligne votre application</p>
-                                <p>3. un micro rapport (3000 mots maximum) qui résume l'organisation de votre implémentation</p>
-                                <p></p>
-                            </li>
-                        </ul>
-                    </div>
-
-
+                        Dans le cadre de la licence professionnel LPDW, nous avons dû réaliser un
+                        site pour des apiculteurs en utilisant l’un des framework JS vu en cours.
+                        Nous avons choisi d’utiliser le framework View JS car ils nous paraissaient
+                        plus facile d’utilisation.
+                    </p>
+                    <h2>
+                        1. L’organisation du projet
+                    </h2>
+                    <p>
+                        Après réception du projet nous nous sommes d’abord concertés afin de se
+                        mettre d’accord sur la vision du projet pour cela des maquettes ont été
+                        réaliser individuellement puis mise en commun afin de s’assurer d’une
+                        vision commune du projet. Nous nous sommes ensuite réparti les tâches de
+                        manière équitable en mis en place un GIT afin de simplifier la mise en
+                        commun.
+                    </p>
+                    <h2>
+                        2. Charte Graphique
+                    </h2>
+                    <p>
+                        Pour l’aspect graphique nous avons choisi d’utiliser la couleur jaune afin
+                        de rappeler les abeilles ainsi qu’un gris pour entrer en contraste avec le
+                        jaune et simplifier la lecture, le bouton et lui en vert afin de rappeler
+                        la nature proche aux métiers d’apiculteurs.
+                    </p>
+                    <h2>
+                        3. Organisation des pages
+                    </h2>
+                    <p>
+                        Notre site contient trois pages plus la page d’accueil :
+                    </p>
+                    <p>
+                        · Une liste des rucher avec la possibilité de lister les ruchers, en
+                        ajouter un et effectuer une visite.
+                    </p>
+                    <p>
+                        · Une carte répertoriant les différents rucher en fonction de leurs
+                        coordonnées.
+                    </p>
+                    <p>
+                        · Une page paramètre pour modifier les paramètres par défaut.
+                    </p>
+                    <h2>
+                        4. Indexed DB
+                    </h2>
+                    <p>
+                        Pour faire persister les données dans le site on ne pouvait pas utiliser de
+                        réelle base de données puisque toute l’application devait être réaliser en
+                        JS sans autre langage, nous avons donc fait le choix d’utiliser l’indexedDB
+                        contenue dans chaque navigateur ainsi les données sont persistante tant
+                        qu’on utilise le même navigateur.
+                    </p>
+                    <p>
+                        Notre base de données comporte ainsi deux tables :
+                    </p>
+                    <p>
+                        · Une table rucher avec un identifiant, son nom le nombres de ruche, un
+                        descriptif, les coordonnées géographique, une date de création ainsi qu’une
+                        fréquence de visite.
+                    </p>
+                    <p>
+                        · Une table visite relier à la table rucher grâce à l’identifiant et
+                        possédant en plus les champs que l’utilisateur peut saisir telle qu’une
+                        description d’une visite de la nourriture ou du nombre de récolte.
+                    </p>
+                    <h2>
+                        Conclusion
+                    </h2>
+                    <p>
+                        Ce projet n’est pas entièrement terminé en laisse voir de nombreuse
+                        possibilité d’amélioration par rapport au sujet donné initiale, cependant
+                        aux vues de la charge de travail en entreprise et du temps impartis
+                        relativement cours nous n’avons pas réussi à lui consacrer le temps
+                        nécessaire pour mener ce projet à bien. Il nous à néanmoins permis de
+                        comprendre l’intérêt de l’utilisation d’un framework JS par rapport au JS
+                        natif en prenant conscience de la simplification.
+                    </p>
                 </section>
             </div>
         </div>
