@@ -83,34 +83,32 @@ const app = new Vue({
             this.errors = [];
 
             if (!this.names) {
-                this.errors.push('Nom necessaire.');
+                this.errors.push('Nom nécessaire.');
+            } else {
+                var request = indexedDB.open(dbName, 5);
+
+                var dataSend = {
+                    "identifiant": ChaineAleatoire(50),
+                    "nom": this.names,
+                    "nbRuches": this.nbRuches,
+                    "descriptif": this.descriptif,
+                    "longitude": this.longitude,
+                    "latitude": this.latitude,
+                    "dateCreation": new Date(),
+                    "frequenceVisite": this.frequency,
+                };
+
+                request.onsuccess = function (event) {
+                    var db = event.target.result;
+                    var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
+                    customerObjectStore.add(dataSend);
+                };
+
+                window.location.replace("../pages/listRucher.html");
             }
-            if (!this.nbRuches) {
-                this.errors.push('Nombre de ruche necessaire');
-            }
-
-            var request = indexedDB.open(dbName, 5);
-
-            var dataSend = {
-                "identifiant": ChaineAleatoire(50),
-                "nom": this.names,
-                "nbRuches": this.nbRuches,
-                "descriptif": this.descriptif,
-                "longitude": this.longitude,
-                "latitude": this.latitude,
-                "dateCreation": new Date(),
-                "frequenceVisite": this.frequency,
-            };
-
-            request.onsuccess = function (event) {
-                var db = event.target.result;
-                var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
-                customerObjectStore.add(dataSend);
-            };
-
         }
     }
-})
+});
 
 var ChaineAleatoire = function ChaineAleatoire(nbcar) {
     var ListeCar = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];

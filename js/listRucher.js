@@ -17,7 +17,7 @@ function getData() {
                     "longitude": resultat.longitude,
                     "latitude": resultat.latitude,
                     "dateCreation": resultat.dateCreation,
-                    "frequenceVisite": resultat.frequenceVisite,
+                    "frequenceVisite": resultat.frequenceVisite
                 })
             })
 

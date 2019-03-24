@@ -48,7 +48,7 @@
                                 <p v-if="rucher.descriptif" class="card-text">Description : <br> {{ rucher.descriptif }}</p>
                             </div>
                             <div class="card-footer text-center">
-                                <a href="#" class="btn btn-warning text-light">Visitez le rucher</a>
+                                <a v-bind:href="'./visiteRuche.html?id=' + rucher.identifiant"class="btn btn-warning text-light">Visitez le rucher</a>
                             </div>
                         </div>
                     </div>
@@ -58,6 +58,5 @@
     </main>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script src="../js/script.js"></script>
 <script src="../js/listRucher.js"></script>
 </html>
