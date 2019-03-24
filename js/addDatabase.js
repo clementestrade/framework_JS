@@ -9,32 +9,14 @@ request.onerror = function (event) {
 };
 request.onupgradeneeded = function (event) {
     var db = event.target.result;
-    var objectStore = db.createObjectStore("ruchers", {keyPath: "identifiant"});
+    var objectStoreRucher = db.createObjectStore("ruchers", {keyPath: "identifiant"});
 
-    objectStore.createIndex("nom", "nom", {unique: false});
+    objectStoreRucher.createIndex("nom", "nom", {unique: false});
 
+    var objectStoreVisite = db.createObjectStore("VisiteRucher", {keyPath: "identifiant"});
 
-    // Utiliser la transaction "oncomplete" pour être sûr que la création de l'objet de stockage
-    // est terminée avant d'ajouter des données dedans.
-    objectStore.transaction.oncomplete = function (event) {
-        // Stocker les valeurs dans le nouvel objet de stockage.
-        var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
-        for (var i in rucherData) {
-            customerObjectStore.add(rucherData[i]);
-        }
-    }
+    objectStoreVisite.createIndex("identifiantRucher", "identifiantRucher", {unique: false});
 };
-
-request.onsuccess = function (event) {
-    var db = event.target.result;
-    var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
-
-    db.transaction(["ruchers"]).objectStore("ruchers").getAll().onsuccess = function (event) {
-        //console.log(event.target.result[1].dateCreation)
-    }
-
-};
-
 
 function getCoords(position) {
     app.latitude = position.coords.latitude;
@@ -105,6 +87,50 @@ const app = new Vue({
                 };
 
                 window.location.replace("../pages/listRucher.html");
+            }
+        }
+    }
+});
+
+
+const appVisite = new Vue({
+    el: '#appVisite',
+    data: {
+        errors: [],
+        identifiantRucher: null,
+        dynamique: null,
+        nourriture: null,
+        nbHaussesRecolt: 0,
+        observations: null,
+    },
+
+    methods: {
+        checkForm: function (e) {;
+
+            this.errors = [];
+
+            if (!this.idRucher) {
+                this.errors.push('Rucher necessaire');
+            } else {
+                var request = indexedDB.open(dbName, 5);
+
+                var dataSend = {
+                    "identifiant": ChaineAleatoire(50),
+                    "identifiantRucher": this.identifiantRucher,
+                    "dateVisite": new Date(),
+                    "dynamique": this.dynamique,
+                    "nourriture": this.nourriture,
+                    "nbHaussesRecolt": this.nbHaussesRecolt,
+                    "observations": this.observations,
+                };
+
+                request.onsuccess = function (event) {
+                    var db = event.target.result;
+                    var customerObjectStore = db.transaction("VisiteRucher", "readwrite").objectStore("VisiteRucher");
+                    customerObjectStore.add(dataSend);
+                };
+
+                window.location.replace("../pages/visiteRuche.html");
             }
         }
     }
