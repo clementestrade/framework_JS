@@ -1,6 +1,20 @@
 const dbName = "apiculteurDatabase";
 
-function getData() {
+var request = indexedDB.open(dbName, 5);
+
+request.onupgradeneeded = function (event) {
+    var db = event.target.result;
+    var objectStoreRucher = db.createObjectStore("ruchers", {keyPath: "identifiant"});
+
+    objectStoreRucher.createIndex("nom", "nom", {unique: false});
+
+    var objectStoreVisite = db.createObjectStore("VisiteRucher", {keyPath: "identifiant"});
+
+    objectStoreVisite.createIndex("identifiantRucher", "identifiantRucher", {unique: false});
+};
+
+
+function getDataRucher() {
     var request = indexedDB.open(dbName, 5);
     var res = this.ruchers;
     request.onsuccess = function (event) {
@@ -30,7 +44,7 @@ var ruchers = [];
 
 (function() {
 
-    ruchers = getData();
+    ruchers = getDataRucher();
 
     const app2 = new Vue({
         el: '#app2',

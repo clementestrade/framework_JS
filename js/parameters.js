@@ -1,18 +1,6 @@
-var url = new URL(window.location);
-
-var urlSearch = new URLSearchParams(url.search);
-
-var idRucher = urlSearch.get('id');
-
-console.log(idRucher);
-
 const dbName = "apiculteurDatabase";
 
 var request = indexedDB.open(dbName, 5);
-
-request.onerror = function (event) {
-    // Gestion des erreurs.
-};
 
 request.onupgradeneeded = function (event) {
     var db = event.target.result;
@@ -25,8 +13,8 @@ request.onupgradeneeded = function (event) {
     objectStoreVisite.createIndex("identifiantRucher", "identifiantRucher", {unique: false});
 };
 
-
 function getDataRucher() {
+    var request = indexedDB.open(dbName, 5);
     var res = this.ruchers;
     request.onsuccess = function (event) {
         var db = event.target.result;
@@ -52,12 +40,13 @@ function getDataRucher() {
 }
 
 function getDataVisite() {
+    var request = indexedDB.open(dbName, 5);
     var res = this.ruchers;
     request.onsuccess = function (event) {
         var db = event.target.result;
-        var customerObjectStore = db.transaction("visites", "readwrite").objectStore("visites");
+        var customerObjectStore = db.transaction("VisiteRucher", "readwrite").objectStore("VisiteRucher");
 
-        db.transaction(["visites"]).objectStore("visites").getAll().onsuccess = function (event) {
+        db.transaction(["VisiteRucher"]).objectStore("VisiteRucher").getAll().onsuccess = function (event) {
             event.target.result.forEach(function (resultat) {
                 res.push({
                     "identifiant": resultat.identifiant,
@@ -75,17 +64,31 @@ function getDataVisite() {
     return res;
 }
 
-var rucher = {};
+var ruchers = [];
+var visite = [];
 
 (function() {
 
-    rucher = getDataRucher().filter(rucher => rucher.identifiant === idRucher);
-    visite = getDataRucher().filter(visite => visite.identifiantRucher === idRucher);
+    ruchers = getDataRucher();
+    visite = getDataVisite();
 
-    const displayRucher = new Vue({
-        el: '#displayRucher',
-        data: {
-            rucher: rucher,
-        }
+    $('#export').on('click', function() {
+        var exportObj = {};
+        exportObj['ruchers'] = ruchers;
+        exportObj['visite'] = visite;
+
+        console.log(ruchers);
+        console.log(visite);
+        console.log(exportObj);
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+        var downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href",     dataStr);
+        downloadAnchorNode.setAttribute("download", "App'iculture.json");
+        document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
     });
 })();
+
+
+
