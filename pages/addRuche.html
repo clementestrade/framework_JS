@@ -36,10 +36,9 @@
     <main class="bg-dark">
         <div class="row justify-content-center text-light">
             <h1 class="col-12 mt-4 mb-4 text-warning text-center">Ajout d'un rucher</h1>
-            <div id="app">
+            <div id="app" class="col-12 px-5">
                 <form
                         v-on:submit.prevent="checkForm"
-                        class="col-12 px-5"
                 >
                     <div v-if="errors.length" v-for="error in errors">
                         <div class="alert alert-danger" role="alert">
@@ -74,8 +73,8 @@
                                 name="typeEvt"
                                 class="custom-select"
                         >
-                            <option value="arbre">Arbre</option>
-                            <option value="plaine">Plaine</option>
+                            <option value="Arbre">Arbre</option>
+                            <option value="Plaine">Plaine</option>
                         </select>
                     </div>
 
@@ -136,6 +135,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <script src="../js/addDatabase.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/addRucher.js"></script>
 </html>

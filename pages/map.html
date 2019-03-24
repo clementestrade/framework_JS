@@ -43,7 +43,7 @@
             <div id="listPoi" class="col-12 col-xs-11 col-md-4 bg-secondary px-1" style="max-height:700px; overflow-y: auto">
                 <div class="card my-1" v-for="rucher in ruchers">
                     <div class="card-header">
-                        <h5 class="card-title mb-0" style="text-transform: capitalize;">{{ rucher.nom }}<span v-if="!(rucher.latitude && rucher.longitude)" class="badge badge-danger">Absent de la carte</span></h5>
+                        <h5 class="card-title mb-0" style="text-transform: capitalize;">{{ rucher.nom }} <span v-if="!(rucher.latitude && rucher.longitude)" class="badge badge-danger">Absent de la carte</span></h5>
                     </div>
                     <div class="card-body">
                         <p class="card-text">Nombre de ruche(s) : {{ rucher.nbRuches }}</p>
@@ -62,5 +62,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
     <script src="../js/map.js"></script>
 </html>

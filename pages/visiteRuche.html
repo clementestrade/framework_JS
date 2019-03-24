@@ -34,100 +34,71 @@
         </div>
     </nav>
     <main class="bg-dark">
-        <div class="row justify-content-center text-light">
-            <h1 class="col-12 mt-4 mb-4 text-warning text-center">Ajout d'un rucher</h1>
-            <form
-                    id="app"
-                    @submit="checkForm"
-                    class="col-12 px-5"
-            >
-                <p v-if="errors.length">
-                    <b>Please correct the following error(s):</b>
+        <div id="app" class="row justify-content-center text-light">
+
+            <div class="col-12 col-sm-6 border border-warning">
+                <h2 class="mt-4 mb-4 text-warning text-center" style="text-transform: capitalize;">{{ rucher.nom }}</h2>
+                <div class="card-body">
+                    <p class="card-text">Nombre de ruche(s) : {{ rucher.nbRuches }}</p>
+                    <p class="card-text">Type d'environnement : <br> {{ rucher.typeEvt }}</p>
+                    <p v-if="rucher.descriptif" class="card-text">Description : <br> {{ rucher.descriptif }}</p>
+                    <p class="card-text">Crée le : <br> {{ rucher.dateCreation }}</p>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 border border-warning">
+
+                <h2 class="mt-4 mb-4 text-warning text-center">Saisie d'une visite</h2>
+                <form  v-on:submit.prevent="checkForm" class="col-12 px-5">
+                    <p v-if="errors.length">
+                        <b>Please correct the following error(s):</b>
                     <ul>
                         <li v-for="error in errors">{{ error }}</li>
                     </ul>
-                </p>
+                    </p>
 
-                <div class="form-group">
-                    <label for="name">Nom : </label>
-                    <input  id="name"
-                            v-model="names"
-                            type="text"
-                            name="name"
-                            class="form-control"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="nbRuche">Nombre de ruche : </label>
-                    <input  id="nbRuche"
-                            v-model="nbRuches"
-                            type="number"
-                            name="nbRuche"
-                            class="form-control"
-                            min="0">
-                </div>
-
-                <div class="form-group">
-                    <label for="typeEvt">Type d'environnement : </label>
-                    <select id="typeEvt"
-                            v-model="typeEvt"
-                            name="typeEvt"
-                            class="custom-select"
-                    >
-                        <option value="arbre">Arbre</option>
-                        <option value="plaine">Plaine</option>
-                    </select>
-                </div>
-
-                <div v-if="longitude && latitude" class="form-group row">
-                    <label for="longitude" class="col-sm-2 col-form-label">Longitude : </label>
-                    <div class="col-sm-10 col-md-4">
-                        <input  id="longitude"
-                                v-model="longitude"
-                                type="number"
-                                name="longitude"
-                                class="form-control-plaintext text-light"
-                                readonly
-                        >
+                    <div class="form-group">
+                        <label for="dynamique">Dynamique : </label>
+                        <input  id="dynamique" v-model="visite.dynamique" type="text" name="dynamique" class="form-control">
                     </div>
-                    <label for="latitude" class="col-sm-2 col-form-label">Latitude : </label>
-                    <div class="col-sm-10 col-md-4">
-                        <input  id="latitude"
-                                v-model="latitude"
-                                type="number"
-                                name="latitude"
-                                class="form-control-plaintext text-light"
-                                readonly
-                        >
+
+                    <div class="form-group">
+                        <label for="nourriture">Nourriture apportée : </label>
+                        <input  id="nourriture" v-model="visite.nourriture" type="text" name="nourriture" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nbHaussesRecolt">Nombre de hausses récoltées : </label>
+                        <input  id="nbHaussesRecolt" v-model="visite.nbHaussesRecolt" type="number" name="nbHaussesRecolt" class="form-control" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observations">Observations : </label>
+                        <input  id="observations" v-model="visite.observations" type="text" name="observations" class="form-control">
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <input class="btn btn-success" type="submit" value="Ajouter">
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-12" v-for="visite in rucher.historique">
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0" style="text-transform: capitalize;">Visite du {{ visite.dateVisite }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Dynamique : {{ visite.dynamique }}</p>
+                        <p class="card-text">Nourriture apportées : {{ visite.nourriture }}</p>
+                        <p class="card-text">Nombre de hausse récoltées : <br> {{ visite.nbHaussesRecolt }}</p>
+                        <p v-if="visite.observations" class="card-text">Observations : <br> {{ visite.observations }}</p>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label for="frequency">Fréquence : </label>
-                    <input  id="frequency"
-                            v-model="frequency"
-                            type="number"
-                            name="frequency"
-                            class="form-control"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="descriptif">Description : </label>
-                    <textarea id="descriptif"
-                              v-model="descriptif"
-                              name="descriptif"
-                              class="form-control"
-                              rows="5"></textarea>
-                </div>
-
-                <input class="btn btn-success"
-                       type="submit"
-                       value="Ajouter"
-                >
-
-            </form>
         </div>
     </main>
 </body>
@@ -136,5 +107,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
     <script src="../js/visiteRucher.js"></script>
 </html>
