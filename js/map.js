@@ -30,15 +30,6 @@ request.onupgradeneeded = function (event) {
     }
 };
 
-request.onsuccess = function (event) {
-    var db = event.target.result;
-    var customerObjectStore = db.transaction("ruchers", "readwrite").objectStore("ruchers");
-
-    db.transaction(["ruchers"]).objectStore("ruchers").getAll().onsuccess = function (event) {
-        //console.log(event.target.result[1].dateCreation)
-    }
-
-};
 function getData() {
     return new Promise(function(resolve){
         var request = indexedDB.open(dbName, 5);
@@ -72,7 +63,7 @@ var ruchers = [];
 (function() {
 
     getData();
-    console.log(ruchers);
+
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(constructMap, showError);
     }
@@ -81,6 +72,25 @@ var ruchers = [];
         el: '#app',
         data: {
             ruchers: ruchers,
+        },
+        watch: {
+            ruchers: function (oldRuchers, newRuchers) {
+                console.log(oldRuchers);
+                console.log(newRuchers);
+                if(newRuchers.length > 0) {
+                    newRuchers.forEach(function(rucher, index){
+                        if( rucher.latitude !== undefined && rucher.longitude !== undefined ){
+                            var templatlong = L.latLng(rucher.latitude, rucher.longitude);
+                            var marker = L.marker(templatlong).addTo(mymap);
+                            marker.bindPopup('<h5><b>' + rucher.nom + '</b></h5><p>Nombre de ruches : ' + rucher.nbRuches + '</p><a href="/visiteRuche.html?id=' + rucher.identifiant +'" class="btn btn-warning text-light">Visitez le rucher</a>');
+                            if(index === 0){
+                                marker.openPopup();
+                            };
+                        }
+                    });
+                }
+            }
+
         }
     });
 })();
@@ -94,19 +104,6 @@ function constructMap(position) {
         id: 'mapbox.streets',
         accessToken: 'your.mapbox.access.token'
     }).addTo(mymap);
-
-    var tmp = ruchers;
-    tmp.forEach(function(rucher, index){
-        console.log(ruchers);
-        if( rucher.latitude !== undefined && rucher.longitude !== undefined ){
-            var templatlong = L.latLng(rucher.latitude, rucher.longitude);
-            var marker = L.marker(templatlong).addTo(mymap);
-            marker.bindPopup('<h5><b>' + rucher.nom + '</b></h5><p>Nombre de ruches : ' + rucher.nbRuches + '</p><a href="#" class="btn btn-sm btn-warning text-light">Visitez le rucher</a>');
-            if(index === 0){
-                marker.openPopup();
-            };
-        }
-    });
 }
 
 function showError(error) {
@@ -125,3 +122,5 @@ function showError(error) {
             break;
     }
 }
+
+
